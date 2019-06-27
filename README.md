@@ -1,7 +1,10 @@
 # visitor-count-badge
 A badge generator for count visitor of your README
 
-![](http://localhost:5000)
+## Demo
+See below badge, try to refresh current page then see again:
+
+![](http://149.28.189.64:5000/)
 
 ## Install dependencies
 
