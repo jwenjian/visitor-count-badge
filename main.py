@@ -15,4 +15,5 @@ def hello():
     svg = badge(left_text="Total Visitor", right_text=str(total_visitor_count),
                 whole_link="https://github.com/jwenjian/ghiblog")
 
-    return Response(response=svg, content_type="image/svg+xml")
+    headers = {'Cache-Control': 'no-cache'}
+    return Response(response=svg, content_type="image/svg+xml", headers=headers)
