@@ -2,7 +2,7 @@
 A badge generator for count visitor of your README
 
 ## Demo
-See below badge, try to refresh current page(a few minutes later, since Github will cache the svg files, see: https://help.github.com/en/articles/about-anonymized-image-urls) then see again:
+See below badge, try to refresh current page then see again :tada:
 
 ![](http://149.28.189.64:5000/)
 
