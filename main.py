@@ -37,11 +37,9 @@ def total_count_svg() -> Response:
 
     print("repo_id = ", repo_id)
 
-    original_count = total_count_hub[repo_id]
-
-    if original_count is None:
-        original_count = 0
-        total_count_hub[repo_id] = original_count
+    original_count = 0
+    if repo_id in total_count_hub:
+        original_count = total_count_hub[repo_id]
 
     original_count += 1
 
