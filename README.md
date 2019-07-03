@@ -4,7 +4,7 @@ A badge generator for count visitor of your README
 ## Demo
 See below badge, try to refresh current page then see again :tada:
 
-![](http://149.28.189.64:5000/)
+[![](https://visitor-count-badge.herokuapp.com/total.svg?repo_id=jwenjian.visitor-count-badge)](https://github.com/jwenjian/ghiblog/issues/43)
 
 ## Install dependencies
 

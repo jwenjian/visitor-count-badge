@@ -32,7 +32,7 @@ def total_count_svg() -> Response:
     global total_count_hub
 
     repo_id = request.args.get('repo_id')
-    if repo_id is None or repo_id != '':
+    if repo_id is None or repo_id == '':
         return invalid_count_resp()
 
     print("repo_id = ", repo_id)
