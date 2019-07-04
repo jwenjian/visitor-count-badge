@@ -45,6 +45,8 @@ def total_count_svg() -> Response:
 
     total_count_hub[repo_id] = original_count
 
+    print(total_count_hub)
+
     svg = badge(left_text="Total Visitor", right_text=str(original_count))
 
     expiry_time = datetime.datetime.utcnow() - datetime.timedelta(minutes=10)
