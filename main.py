@@ -49,6 +49,6 @@ def total_count_svg() -> Response:
 
     expiry_time = datetime.datetime.utcnow() - datetime.timedelta(minutes=10)
 
-    headers = {'Cache-Control': 'no-cache,max-age=0', 'Expires': expiry_time.strftime("%a, %d %b %Y %H:%M:%S GMT")}
+    headers = {'Cache-Control': 'no-cache,max-age=0,no-store,s-maxage=0,proxy-revalidate', 'Expires': expiry_time.strftime("%a, %d %b %Y %H:%M:%S GMT")}
 
     return Response(response=svg, content_type="image/svg+xml", headers=headers)
