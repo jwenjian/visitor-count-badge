@@ -41,18 +41,24 @@ def total_count_svg() -> Response:
 
     new_count = 1
 
-    cursor.execute('SELECT * FROM TOTAL_COUNT_RECORD WHERE repo_id = %s', (repo_id, ))
+    cursor.execute('SELECT * FROM TOTAL_COUNT_RECORD WHERE repo_id = %s', (repo_id,))
     doc = cursor.fetchone()
 
-    if doc is not None:
-        # 0: id, 1: repo_id, 2: count
-        original_count = doc[2]
-        new_count = original_count + 1
-        cursor.execute('UPDATE TOTAL_COUNT_RECORD SET count = %s WHERE repo_id = %s', (new_count, repo_id))
-        conn.commit()
-    else:
-        cursor.execute('INSERT INTO TOTAL_COUNT_RECORD(repo_id, count) VALUES(%s, %s)', (repo_id, new_count))
-        conn.commit()
+    try:
+        if doc is not None:
+            # 0: id, 1: repo_id, 2: count
+            original_count = doc[2]
+            new_count = original_count + 1
+            cursor.execute('UPDATE TOTAL_COUNT_RECORD SET count = %s WHERE repo_id = %s', (new_count, repo_id))
+            conn.commit()
+        else:
+            cursor.execute('INSERT INTO TOTAL_COUNT_RECORD(repo_id, count) VALUES(%s, %s)', (repo_id, new_count))
+            conn.commit()
+    except Exception as e:
+        print('execute sql error', e)
+    finally:
+        cursor.close()
+        conn.close()
 
     svg = badge(left_text="Total Visitor", right_text=str(new_count))
 
