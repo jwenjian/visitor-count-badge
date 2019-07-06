@@ -1,8 +1,9 @@
 import datetime
 
+import psycopg2
 from flask import Flask, Response, request
 from pybadges import badge
-from tinydb import TinyDB, Query
+from os import environ
 
 app = Flask(__name__)
 
@@ -28,10 +29,9 @@ def total_count_svg() -> Response:
 
     :return: A svg badge with latest visitor count
     """
-    global total_count_hub
-    db = TinyDB('db.json')
-    total_count_table = db.table('total_count')
-    record = Query()
+
+    conn = psycopg2.connect(environ['DATABASE_URL'])
+    cursor = conn.cursor()
 
     repo_id = request.args.get('repo_id')
     if repo_id is None or repo_id == '':
@@ -39,22 +39,22 @@ def total_count_svg() -> Response:
 
     print("repo_id = ", repo_id)
 
-    original_count = 0
-    doc = None
-    docs = total_count_table.search(record.repo_id == repo_id)
-    if docs is not None and len(docs) > 0:
-        doc = docs[0]
-        original_count = doc['count'] if doc['count'] is not None else 0
+    new_count = 1
+
+    cursor.execute('SELECT * FROM TOTAL_COUNT_RECORD WHERE repo_id = %s', (repo_id, ))
+    doc = cursor.fetchone()
+
+    if doc is not None:
+        # 0: id, 1: repo_id, 2: count
+        original_count = doc[2]
+        new_count = original_count + 1
+        cursor.execute('UPDATE TOTAL_COUNT_RECORD SET count = %s WHERE repo_id = %s', (new_count, repo_id))
+        conn.commit()
     else:
-        doc = {'repo_id': repo_id, 'count': 0}
+        cursor.execute('INSERT INTO TOTAL_COUNT_RECORD(repo_id, count) VALUES(%s, %s)', (repo_id, new_count))
+        conn.commit()
 
-    original_count += 1
-
-    doc['count'] = original_count
-
-    total_count_table.upsert(doc, record.repo_id == repo_id)
-
-    svg = badge(left_text="Total Visitor", right_text=str(original_count))
+    svg = badge(left_text="Total Visitor", right_text=str(new_count))
 
     expiry_time = datetime.datetime.utcnow() - datetime.timedelta(minutes=10)
 

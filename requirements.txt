@@ -1,4 +1,4 @@
 Flask
 pybadges
 gunicorn
-tinydb
+psycopg2-binary
