@@ -16,5 +16,17 @@ See below badge, try to refresh current page then see again :tada:
 Add a image to your README file:
 
 ```markdown
-![Total visitor](http://localhost:5000)
+![Total visitor](https://visitor-count-badge.herokuapp.com/total.svg?repo_id=#{put your repo_id here, see below for detail})
 ```
+
+repo_id: 
+
+An unique string represent your current README, recommend as following pattern
+
+- For README:
+
+{your.github.login}.{your.repo.id}
+
+- For Issue:
+
+{repo.owner.login}.{repo.id}.issue.{your.issue.id}
