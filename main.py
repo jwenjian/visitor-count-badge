@@ -2,10 +2,9 @@ import datetime
 
 from flask import Flask, Response, request
 from pybadges import badge
+from tinydb import TinyDB, Query
 
 app = Flask(__name__)
-
-total_count_hub = {}
 
 
 def invalid_count_resp() -> Response:
@@ -30,6 +29,9 @@ def total_count_svg() -> Response:
     :return: A svg badge with latest visitor count
     """
     global total_count_hub
+    db = TinyDB('db.json')
+    total_count_table = db.table('total_count')
+    record = Query()
 
     repo_id = request.args.get('repo_id')
     if repo_id is None or repo_id == '':
@@ -38,19 +40,29 @@ def total_count_svg() -> Response:
     print("repo_id = ", repo_id)
 
     original_count = 0
-    if repo_id in total_count_hub:
-        original_count = total_count_hub[repo_id]
+    doc = None
+    docs = total_count_table.search(record.repo_id == repo_id)
+    if docs is not None and len(docs) > 0:
+        doc = docs[0]
+        original_count = doc['count'] if doc['count'] is not None else 0
+    else:
+        doc = {'repo_id': repo_id, 'count': 0}
 
     original_count += 1
 
-    total_count_hub[repo_id] = original_count
+    doc['count'] = original_count
 
-    print(total_count_hub)
+    total_count_table.upsert(doc, record.repo_id == repo_id)
 
     svg = badge(left_text="Total Visitor", right_text=str(original_count))
 
     expiry_time = datetime.datetime.utcnow() - datetime.timedelta(minutes=10)
 
-    headers = {'Cache-Control': 'no-cache,max-age=0,no-store,s-maxage=0,proxy-revalidate', 'Expires': expiry_time.strftime("%a, %d %b %Y %H:%M:%S GMT")}
+    headers = {'Cache-Control': 'no-cache,max-age=0,no-store,s-maxage=0,proxy-revalidate',
+               'Expires': expiry_time.strftime("%a, %d %b %Y %H:%M:%S GMT")}
 
     return Response(response=svg, content_type="image/svg+xml", headers=headers)
+
+
+if __name__ == '__main__':
+    app.run()
