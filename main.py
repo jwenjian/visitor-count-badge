@@ -30,14 +30,14 @@ def total_count_svg() -> Response:
     :return: A svg badge with latest visitor count
     """
 
-    conn = psycopg2.connect(environ['DATABASE_URL'])
-    cursor = conn.cursor()
-
     repo_id = request.args.get('repo_id')
     if repo_id is None or repo_id == '':
         return invalid_count_resp()
 
     print("repo_id = ", repo_id)
+
+    conn = psycopg2.connect(environ['DATABASE_URL'])
+    cursor = conn.cursor()
 
     new_count = 1
 
