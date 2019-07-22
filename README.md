@@ -5,7 +5,7 @@ A badge generator for count visitor of your README, it support 2 endpoints now:
 > count total visitors to your README or Issue
 
 2. today.svg
-> count visitors only in current day, and be noted: this will **NOT** increase the total count
+> count visitors only in current day(server timezone), and be noted: this will **NOT** increase the total count
 
 ## Demo
 See below badge, try to refresh current page then see again :tada:
