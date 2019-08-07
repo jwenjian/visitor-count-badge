@@ -1,4 +1,7 @@
 # visitor-count-badge
+
+[简体中文](README_cn.md)
+
 A badge generator for count visitor of your README, it support 2 endpoints now:
 
 1. total.svg
