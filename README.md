@@ -1,6 +1,9 @@
-# visitor-count-badge
 
-[简体中文](README_cn.md)
+**[Note] Since the app is deployed in heroku free plan, 500 hours is not enough for everyone's use, fork and deploy under your own account is recommended!**
+
+---
+
+# visitor-count-badge
 
 A badge generator for count visitor of your README, it support 2 endpoints now:
 
