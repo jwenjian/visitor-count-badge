@@ -44,7 +44,3 @@ An unique string represent your current README, recommend as following pattern
 - For README:
 
 {your.github.login}.{your.repo.id}, for example: repo_id=`jwenjian.ghiblog`
-
-- For Issue:
-
-{repo.owner.login}.{repo.id}.issue.{your.issue.id}, for example, repo_id=`jwenjian.ghiblog.issue.1`
