@@ -140,8 +140,8 @@ def index() -> Response:
             user = re.split('[.]', repo_id)[0]
             repo = re.split('[.]', repo_id)[1]
         else:
-            user = repo_id
-            repo = repo_id
+            user = repo_id.strip()
+            repo = ''
         return {
             'user': user,
             'repo': repo,
