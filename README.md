@@ -19,6 +19,12 @@ See below badge, try to refresh current page then see again :tada:
 [![](https://visitor-count-badge.herokuapp.com/total.svg?repo_id=jwenjian.visitor-count-badge)](https://github.com/jwenjian/ghiblog/issues/43)
 [![](https://visitor-count-badge.herokuapp.com/today.svg?repo_id=jwenjian.visitor-count-badge)](https://github.com/jwenjian/ghiblog/issues/43)
 
+## Website
+Click [here](https://visitor-count-badge.herokuapp.com) to visit index page which will shows you:
+
+- repos with top 10 total visitors
+- repos with top 10 visitors within each day
+ 
 ## Install dependencies
 
 1. `pip install -r requirements.txt`
