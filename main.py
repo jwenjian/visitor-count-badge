@@ -143,7 +143,8 @@ def index() -> Response:
     top_10_today = cursor.fetchall()
     print(top_10_today)
 
-    return render_template('index.html', top_10_repos=top_10_total, top_10_today_repos=top_10_today)
+    return render_template('index.html', top_10_repos=top_10_total, top_10_today_repos=top_10_today,
+                           visit_date=visit_date)
 
 
 if __name__ == '__main__':
