@@ -136,8 +136,9 @@ def index() -> Response:
         user = None
         repo = None
         if "." in repo_id:
-            user = repo_id.split("\\.")[0]
-            repo = repo_id.split("\\.")[1]
+            import re
+            user = re.split('[.]', repo_id)[0]
+            repo = re.split('[.]', repo_id)[1]
         else:
             user = repo_id
             repo = repo_id
