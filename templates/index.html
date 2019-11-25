@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Visitor Count Badge</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kognise/water.css@latest/dist/light.min.css">
+</head>
+<body>
+<h1>Visitor count badge</h1>
+<p>A visitor count application for your GitHub
+    <mark>README.md</mark>
+</p>
+<div>
+    <iframe src="https://ghbtns.com/github-btn.html?user=jwenjian&repo=visitor-count-badge&type=star&count=true"
+            frameborder="0" scrolling="0" width="160px" height="30px"></iframe>
+    <iframe src="https://ghbtns.com/github-btn.html?user=jwenjian&repo=visitor-count-badge&type=watch&count=true&v=2"
+            frameborder="0" scrolling="0" width="160px" height="30px"></iframe>
+    <iframe src="https://ghbtns.com/github-btn.html?user=jwenjian&repo=visitor-count-badge&type=fork&count=true"
+            frameborder="0" scrolling="0" width="160px" height="30px"></iframe>
+</div>
+<h2>GitHub repository with top 10 total visitors</h2>
+<blockquote>
+    Audit duration since this repository goes live of course. :)
+</blockquote>
+<table>
+    <thead>
+    <tr>
+        <td>Repository</td>
+        <td>Total visitors</td>
+        <td>Rank</td>
+    </tr>
+    </thead>
+    <tbody>
+    {% for repo_total in top_10_repos %}
+    <tr>
+        <td><a href="https://github.com/{{repo_total[1]]}}" target="_blank">{{repo_total[1]}}</a></td>
+        <td>{{repo_total[2]]}}</td>
+        <td>{{loop.index + 1}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<h2>GitHub repository with top 10 visitors within today</h2>
+
+<table>
+    <thead>
+    <tr>
+        <td>Repository</td>
+        <td>Visitors within today(2019-11-25)</td>
+        <td>Rank</td>
+    </tr>
+    </thead>
+    <tbody>
+    {% for repo_today in top_10_today_repos %}
+    <tr>
+        <td><a href="https://github.com/{{repo_today[1]]}}" target="_blank">{{repo_today[1]]}}</a></td>
+        <td>{{repo_today[2]]}}</td>
+        <td>{{loop.index + 1}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>

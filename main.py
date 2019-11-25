@@ -1,7 +1,7 @@
 import datetime
 
 import psycopg2
-from flask import Flask, Response, request
+from flask import Flask, Response, request, render_template
 from pybadges import badge
 from os import environ
 
@@ -121,6 +121,29 @@ def current_day_visitor_count_svg() -> Response:
                'Expires': expiry_time.strftime("%a, %d %b %Y %H:%M:%S GMT")}
 
     return Response(response=svg, content_type="image/svg+xml", headers=headers)
+
+
+@app.route("/index.html")
+@app.route("/index")
+@app.route("/")
+def index() -> Response:
+    conn = psycopg2.connect(environ['DATABASE_URL'])
+    cursor = conn.cursor()
+
+    # get top 10 total
+    cursor.execute('select id, repo_id, count from TOTAL_COUNT_RECORD order by count desc limit 10')
+    top_10_total = cursor.fetchall()
+    print(top_10_total)
+
+    # get top 10 today
+    visit_date = datetime.datetime.now().strftime('%Y%m%d')
+    cursor.execute(
+        'select id, repo_id, count from CURRENT_DAY_COUNT_RECORD where visit_date = %s order by count desc limit 10',
+        (visit_date,))
+    top_10_today = cursor.fetchall()
+    print(top_10_today)
+
+    return render_template('index.html', top_10_repos=top_10_total, top_10_today_repos=top_10_today)
 
 
 if __name__ == '__main__':
