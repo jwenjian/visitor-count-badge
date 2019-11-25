@@ -33,8 +33,9 @@
     <tbody>
     {% for repo_total in top_10_repos %}
     <tr>
-        <td><a href="https://github.com/{{repo_total[1]}}" target="_blank">{{repo_total[1]}}</a></td>
-        <td>{{repo_total[2]}}</td>
+        <td><a href="https://github.com/{{repo_total.user}}/{{repo_total.repo}}"
+               target="_blank">{{repo_total.repo_id}}</a></td>
+        <td>{{repo_total.count}}</td>
         <td>{{loop.index}}</td>
     </tr>
     {% endfor %}
@@ -54,8 +55,9 @@
     <tbody>
     {% for repo_today in top_10_today_repos %}
     <tr>
-        <td><a href="https://github.com/{{repo_today[1]}}" target="_blank">{{repo_today[1]}}</a></td>
-        <td>{{repo_today[2]}}</td>
+        <td><a href="https://github.com/{{repo_today.user}}/{{repo_today.repo}}"
+               target="_blank">{{repo_today.repo_id}}</a></td>
+        <td>{{repo_today.count}}</td>
         <td>{{loop.index}}</td>
     </tr>
     {% endfor %}

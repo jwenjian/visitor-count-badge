@@ -130,9 +130,27 @@ def index() -> Response:
     conn = psycopg2.connect(environ['DATABASE_URL'])
     cursor = conn.cursor()
 
+    def tuple_to_dict(row: tuple) -> dict:
+        # 0 id, 1 repo_id, 2 count
+        repo_id = str(row[1])
+        user = None
+        repo = None
+        if "." in repo_id:
+            user = repo_id.split("\\.")[0]
+            repo = repo_id.split("\\.")[1]
+        else:
+            user = repo_id
+            repo = repo_id
+        return {
+            'user': user,
+            'repo': repo,
+            'repo_id': repo_id,
+            'count': int(row[2])
+        }
+
     # get top 10 total
     cursor.execute('select id, repo_id, count from TOTAL_COUNT_RECORD order by count desc limit 10')
-    top_10_total = cursor.fetchall()
+    top_10_total = map(tuple_to_dict, cursor.fetchall())
     print(top_10_total)
 
     # get top 10 today
@@ -140,7 +158,7 @@ def index() -> Response:
     cursor.execute(
         'select id, repo_id, count from CURRENT_DAY_COUNT_RECORD where visit_date = %s order by count desc limit 10',
         (visit_date,))
-    top_10_today = cursor.fetchall()
+    top_10_today = map(tuple_to_dict, cursor.fetchall())
     print(top_10_today)
 
     return render_template('index.html', top_10_repos=top_10_total, top_10_today_repos=top_10_today,
