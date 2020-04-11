@@ -1,4 +1,18 @@
 
+** ⚠️⚠️⚠️ Alert ⚠️⚠️⚠️**
+
+I created a similar project [visitor-badge](https://github.com/jwenjian/visitor-badge) and hosted on the [glitch.com](https://glitch.com) to avoid the free hours limitation in heroku.
+
+So I will archive this project and migrate the current data to new project one by one.
+
+Please switch to new project and **use the same repo_id value as page_id parameter**, I will migrate the current data one by one. After that, I may stop deploy this project to heroku.
+
+Sorry for the inconvience and hope you have a better experience with the new project.
+
+Any question please [open a new issue](https://github.com/jwenjian/visitor-badge/issues/new) on new project.
+
+---
+
 **[Note] Since the app is deployed in heroku free plan, 500 hours is not enough for everyone's use, fork and deploy under your own account is recommended!**
 
 ---
@@ -16,8 +30,6 @@ A badge generator for count visitor of your README, it support 2 endpoints now:
 ## Demo
 See below badge, try to refresh current page then see again :tada:
 
-[![](https://visitor-count-badge.herokuapp.com/total.svg?repo_id=jwenjian.visitor-count-badge)](https://github.com/jwenjian/ghiblog/issues/43)
-[![](https://visitor-count-badge.herokuapp.com/today.svg?repo_id=jwenjian.visitor-count-badge)](https://github.com/jwenjian/ghiblog/issues/43)
 
 ## Website
 Click [here](https://visitor-count-badge.herokuapp.com) to visit index page which will shows you:
